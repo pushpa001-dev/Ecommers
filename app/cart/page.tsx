@@ -15,11 +15,6 @@ interface Product {
   title: string;
   price: number;
 }
-const getFromLocalStorage = <T,>(key: string): T | null => {
-  if (typeof window === 'undefined') return null;
-  const value = localStorage.getItem(key);
-  return value ? JSON.parse(value) : null;
-};
 const Cart = () => {
   const cartid = useSelector((state: RootState): number => state.data.cartdata.value);
 
@@ -60,18 +55,6 @@ const Cart = () => {
 
     if (cartid) fetchCartProducts();
   }, []);
- const [cart, setCart] = useState<Product[]>([]);
-  useEffect(() => {
-    const savedCart = getFromLocalStorage<Product[]>('cartData');
-    if (savedCart) setCart(savedCart);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('cartData', JSON.stringify(Cart));
-      localStorage.setItem('counterValue', JSON.stringify(value));
-    }
-  }, [Cart, value]);
   return (
     
     <div className="w-full h-screen flex items-center justify-center relative">
