@@ -23,7 +23,7 @@ const Cart =  () => {
   const usedispatch = useDispatch();
 
   const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     async function fetchCartProducts() {
@@ -57,10 +57,9 @@ const Cart =  () => {
         );
 
         setCartItems(detailedProducts);
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to fetch cart:", err);
-        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching cart products:", error);
+        setCartItems([]);
       }
     }
 
